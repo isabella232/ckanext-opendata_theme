@@ -1,9 +1,15 @@
 {% ckan_extends %}
 
 {% block styles %}
-  {{ super() }}
-    <style>
-        {% resource 'opengov_custom_css_resource/css/theme.css' %}
-        {{ g['ckanext.opendata_theme.custom_raw_css'] | safe }}
-    </style>
+    {{ super() }}
+    {% set _type = 'asset' if h.version(h.ckan_version()) > h.version('2.9') else 'resource'  %}
+    {% snippet 'snippets/opendata_' ~ _type ~ '.html' %}
+{% endblock %}
+
+{% set custom_css = h.get_custom_css() %}
+{%- block custom_styles %}
+    {{ super() }}
+    {%- if custom_css -%}
+        <style>{{ custom_css | safe }}</style>
+    {%- endif %}
 {% endblock %}

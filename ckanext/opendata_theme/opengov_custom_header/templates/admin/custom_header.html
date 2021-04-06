@@ -4,26 +4,29 @@
 
 {% import 'macros/form.html' as form %}
 
-{% set custom_header_action = h.url_for(
-  controller='ckanext.opendata_theme.opengov_custom_header.controller:CustomHeaderController',
-  action='custom_header') %}
+{% if h.version(h.ckan_version()) < h.version('2.9') %}
+    {% set custom_header_action = h.url_for(
+    controller='ckanext.opendata_theme.opengov_custom_header.plugin.pylons_plugin:HeaderController',
+    action='custom_header') %}
 
-{% set reset_custom_header = h.url_for(
-  controller='ckanext.opendata_theme.opengov_custom_header.controller:CustomHeaderController',
-  action='reset_custom_header') %}
+    {% set reset_custom_header = h.url_for(
+    controller='ckanext.opendata_theme.opengov_custom_header.plugin.pylons_plugin:HeaderController',
+    action='reset_custom_header') %}
 
-{% set remove_link_from_custom_header = h.url_for(
-  controller='ckanext.opendata_theme.opengov_custom_header.controller:CustomHeaderController',
-  action='remove_link') %}
+    {% set remove_link_from_custom_header = h.url_for(
+    controller='ckanext.opendata_theme.opengov_custom_header.plugin.pylons_plugin:HeaderController',
+    action='remove_link') %}
 
-{% set add_link_from_custom_header = h.url_for(
-  controller='ckanext.opendata_theme.opengov_custom_header.controller:CustomHeaderController',
-  action='add_link') %}
+    {% set add_link_from_custom_header = h.url_for(
+    controller='ckanext.opendata_theme.opengov_custom_header.plugin.pylons_plugin:HeaderController',
+    action='add_link') %}
+{% else %}
+    {% set custom_header_action = h.url_for('/ckan-admin/custom_header/') %}
+    {% set reset_custom_header = h.url_for('/ckan-admin/reset_custom_header/') %}
+    {% set remove_link_from_custom_header = h.url_for('/ckan-admin/remove_link_from_header/') %}
+    {% set add_link_from_custom_header = h.url_for('/ckan-admin/add_link_to_header/') %}
+{% endif %}
 
-{% block styles %}
-    {{ super() }}
-    {% resource 'opengov_custom_theme_resource/main' %}
-{% endblock %}
 
 {% block primary_content_inner %}
     {{ form.errors(errors) }}
@@ -63,7 +66,7 @@
             <div class="controls">
                 <h3 >Header Layout</h3>
                 <label class="checkbox inline">
-                    <input class="form-check-input" type="radio" name="layout_type" value="default"  {% if layout_type=='default' or not layout_type %}checked {% endif %}>Default
+                    <input class="form-check-input" type="radio" name="layout_type" value="default" {% if layout_type=='default' or not layout_type %}checked {% endif %}>Default
                 </label>
                 <label class="checkbox inline">
                     <input class="form-check-input" type="radio" name="layout_type" value="compressed" {% if layout_type=='compressed' %}checked {% endif %}>Compressed
