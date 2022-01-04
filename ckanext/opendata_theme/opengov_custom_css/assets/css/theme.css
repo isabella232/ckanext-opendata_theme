@@ -49,7 +49,7 @@
 .masthead .site-search input {
   color: #ffffff;
   background-color: transparent;
-  padding: 2px 20px 2px 2px;
+  padding: 2px 20px 2px 5px;
   width: 125px;
   border: 0;
   box-shadow: none;
@@ -86,6 +86,10 @@
 .search-form .search-input.search-giant button {
   margin-top: -15px;
 }
+#field-sitewide-search:focus {
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: 2px;
+}
 .wrapper {
   border: none;
   -webkit-box-shadow: none;
@@ -93,9 +97,9 @@
   box-shadow: none;
 }
 .homepage [role=main] {
-  padding: 0;
+  padding: 0 0 20px;
 }
-.main {
+[role=main], .main {
   background: #FFFFFF;
 }
 .hero {
@@ -125,7 +129,7 @@
   max-height: 160px;
 }
 .main-updates li.dataset-item {
-  min-height: 120px;
+  min-height: 80px;
 }
 .secondary.col-sm-3, .secondary.span3 {
   border: 1px solid #cccccc;
@@ -159,14 +163,15 @@
   border: 1px solid #616365;
   box-shadow: 0 1px 3px 0 #616365;
 }
-.search-form {
-  margin-bottom: 0;
-  padding-bottom: 0;
+.media-item:hover, .media-item:focus,
+.browse-group:hover, .browse-group:focus {
+  background-color: #c2e5ff;
 }
+
 .homepage .module-search .search-giant {
   margin-bottom: 0;
 }
-.search-form, .dataset-item {
+.search-form, .primary .dataset-item {
   border-bottom: none;
 }
 .dataset-content>p.empty {
@@ -207,6 +212,15 @@ form.form-inline.form-select.lang-select {
   background-color: #1f76d8;
   border-color: #1f76d8;
   color: #ffffff;
+}
+
+.form-control.select2-container {
+  height: auto !important;
+  padding: 0;
+}
+.select2-search-choice-close,
+.select2-container-multi .select2-search-choice-close {
+  top: 4px;
 }
 
 /* Custom background color for select format labels */
